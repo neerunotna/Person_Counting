@@ -45,7 +45,7 @@ opt = {
 }
 
 
-def violation_alert_generator(im0, subject='People Count Limit Exceeded', message_text='There are more than 4 number of persons detected in a frame'):
+def violation_alert_generator(im0, subject='People Count Limit Exceeded', message_text='There are more than 3 number of persons detected'):
     """
     This function will send an email with attached alert image and then wait for 10 minutes before sending another email
 
@@ -172,7 +172,7 @@ def video_detection(conf_=0.25, frames_buffer=None):
 
                             # we need to make sure at there is violation in at least 5 continuous frames
                             # Check if number of persons in one frame is greater than threshold (say 4)
-                            if total_detections >= 5:
+                            if total_detections >= 4:
                                 flag = True
 
                         # code to send email on five continuous violations
@@ -193,7 +193,7 @@ def video_detection(conf_=0.25, frames_buffer=None):
                             label = f'{names[int(cls)]} {conf:.2f}'
                             plot_one_box(xyxy, img0, label=label, color=(255, 0, 0), line_thickness=3)
 
-                    yield img0, total_detections
+                    yield cv2.putText(img0, f"Persons Detected: {total_detections}", (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 5, cv2.LINE_AA), total_detections
 
         except Exception as e:
             print(e)
