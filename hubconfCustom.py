@@ -193,7 +193,7 @@ def video_detection(conf_=0.25, frames_buffer=None):
                             label = f'{names[int(cls)]} {conf:.2f}'
                             plot_one_box(xyxy, img0, label=label, color=(255, 0, 0), line_thickness=3)
 
-                    yield cv2.putText(img0, f"Persons Detected: {total_detections}", (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 5, cv2.LINE_AA), total_detections
+                    yield cv2.putText(img0, f"Persons Detected: {total_detections}", (120, 150), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 5, cv2.LINE_AA), total_detections
 
         except Exception as e:
             print(e)

@@ -176,7 +176,7 @@ def submit_form():
                         return "That video is successfully uploaded"
                     except Exception as e:
                         # print(e)
-                        return "Error! The video could not be saved"
+                        return f"Error! The video could not be saved due to the following reason: \n {e}"
 
         # handle download request for the detections summary report
         if 'download_button' in request.form:
@@ -217,11 +217,9 @@ def submit_form():
         elif 'live_inference_button' in request.form:
             # read ip cam url from the text box
             vid_ip_path = request.form['live_inference_textbox']
-            print(vid_ip_path)
             # check if vid_ip_path is a valid url
             if validators.url(vid_ip_path):
                 vid_path = vid_ip_path.strip()
-                print(vid_path)
                 video_frames = cv2.VideoCapture(vid_path)
                 # check connection to the ip cam stream
                 if not video_frames.isOpened():
