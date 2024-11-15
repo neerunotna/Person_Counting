@@ -2,11 +2,9 @@
 A modified version of hubconf.py
 
 Modifications:
-1. Added a function to detect PPE violation in a video file or video stream
+1. Added a function to detect number of people greater than threshold in a video file or video stream
 2. Added a function to send email alert with attached image
 
-Modifications made by Anubhav Patrick
-Date: 04/02/2023
 """
 
 import threading
@@ -28,8 +26,8 @@ is_email_allowed = False  # when user checks the email checkbox, this variable w
 send_next_email = True  # We have to wait for 10 minutes before sending another email
 # NEXT TWO STATEMENTS NEED TO BE CHANGED TO MATCH YOUR SETUP!!!
 # set the default email sender and recipient
-email_sender = 'hamza2019cs148@abesit.edu.in'
-email_recipient = 'hamzaaziz822@gmail.com'
+email_sender = 'neeru2021cs133@abesit.edu.in'
+email_recipient = 'neeruchouhan2403@gmail.com'
 # detections_summary will be used to store the detections summary report
 detections_summary = ''
 
@@ -172,20 +170,25 @@ def video_detection(conf_=0.25, frames_buffer=None):
 
                             # we need to make sure at there is violation in at least 5 continuous frames
                             # Check if number of persons in one frame is greater than threshold (say 4)
-                            if total_detections >= 4:
+                            if total_detections > 3:
                                 flag = True
 
                         # code to send email on five continuous violations
-                        if flag is True and is_email_allowed is True:
+                        if flag is True and is_email_allowed is True:              
+
                             violation_frames += 1
-                            if violation_frames >= 5 and send_next_email is True:
-                                # reset the violation_frames since violation is detected
+                            if violation_frames >= 5 and send_next_email == True:
+                            # reset the violation_frames since violation is detected
                                 violation_frames = 0
                                 # create a thread for sending email
                                 t = threading.Thread(target=violation_alert_generator, args=(img0,))
-                                t.start()
+                                t.start()                        
+                            
+                            
+                            
                         elif flag is False:
                             # reset the number of violation_frames if current frame is safe
+                            #Code here
                             violation_frames = 0
 
                         # Plot the bounding boxes on the frame
